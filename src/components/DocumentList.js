@@ -1,57 +1,59 @@
-import "./DocumentList.css";
 import {BsList} from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DocumentMenu from"./DocumentMenu";
+import { Component } from "react";
 
-const DocumentList =()=> {
+// common table column adder into each row 
+// parameters 
+// value - which value need to be added in column
+// classApply - className which having styles
+const Columns=({name,value,classApply})=>
+{
     return(
-        <div>
-          <div className="Define-Head bg-primary text-white">
-             <h4>
-                 <span className="d-block p-2">
-                     Document Details
-                 </span>
-            </h4>
-              <h1>
-                  <BsList type="button"/>
-             </h1>
-           </div>
-        
-          <div>
-             <h6><span className="d-block p-2 bg-secondary">DOCUMENT INFORMATION</span></h6>
-          </div>
-          <div className="table-div">
-            <table className="table">
-                <tbody>
-                    <tr>
-                        <td>
-                            <h6>
-                                <span className="tblText">
-                                    DESCRIPTION
-                                </span>
-                            </h6>
-                        </td>
-                        <td className="table-column">
-                            <span>
-                                To be included as part of the adult admission package. To be completed by doctors
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h6>
-                                <span  className="tblText">TYPE</span>
-                            </h6>
-                        </td>
-                        <td className="table-column">
-                            <span>Standard</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-          </div>
+        <div className="List-Items">
+            <div>
+                <span className={classApply}>{name}</span>
+            </div>
+            <div>
+                <span className={classApply}>{value}</span>
+            </div>
         </div>
-      )
+    );
+};
+class DocumentList extends Component
+{
+    //Constructor to initialize the values 
+    backToHome=(e)=>
+    {
+        this.props.history.push("/menu");
+    }
+    
+    // render function to load the page            
+    render()
+    {
+        return(
+            <div>
+            <div className="List-Head">
+                <h4>
+                    <span className="d-block p-2">
+                        Document Details
+                    </span>
+                </h4>
+                <h1>
+                    <BsList type="button" onClick={()=>{this.backToHome()}} />
+                </h1>
+            </div>
+    
+            <div>
+                <h6><span className="d-block p-2 bg-secondary">DOCUMENT INFORMATION</span></h6>
+            </div>
+            <div>
+                <Columns name={"DESCRIPTION"} value={this.props.Document.DocumentDescription} classApply={"d-block p-2"}/>
+                <hr/>
+                <Columns name={"TYPE"} value={this.props.Document.DocumentType} classApply={"d-block p-2"}/>
+            </div>
+        </div>
+        );
+    }
 }
 
 export default DocumentList

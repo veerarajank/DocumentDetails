@@ -1,3 +1,32 @@
+/*App CSS Start*/
+.App-td
+{
+  padding: 10px;
+}
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
 .App {
   text-align: none;
 }
@@ -13,51 +42,62 @@
   }
 }
 
-.bg-primary {
-  background-color: #007bff!important;
-}
+/*App CSS End*/
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-.Define-Head
-{
-  display: flex;
-  justify-content: space-between;
-}
-.App-td
-{
-  padding: 10px;
-}
-.tblText
-{
-  color:grey;
-}
+
 .table-column
 {
   text-align: right;
 }
-.body-text
+
+
+/*List CSS Start*/
+.List-Head
 {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  background-color: #007bff!important;
+  color:white;
 }
-.App-link {
-  color: #61dafb;
+.List-Items
+{
+  display: flex;
+  text-align: right;
+  justify-content: space-between;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*List CSS End*/
+
+/*Menu CSS Start*/
+.Menu-Head
+{
+  display: flex;
+  justify-content: left;
+  background-color: #007bff!important;
+  color:white;
 }
+.Menu-SubHead
+{
+  display: flex;
+  justify-content: left;
+}
+.Head-text
+{
+  margin-top: 10px;
+}
+
+/*Menu CSS End*/
+
+/*Edit Menu CSS Start*/
+.Sub-List-Items
+{
+  display: flex;
+  text-align: right;
+}
+.Edit-Head
+{
+  display: flex;
+}
+/*Edit Menu CSS End*/
+
+
