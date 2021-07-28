@@ -3,7 +3,7 @@ import {IoMdCheckmark} from "react-icons/io";
 import { useContext,useState } from "react";
 import {DocumentContext} from "../Contexts/DocumentContext";
 import {Link,useHistory} from "react-router-dom"
-const DocumentEdit2=()=>
+const DocumentEdit3=()=>
 {
     const {data,setData}=useContext(DocumentContext);
     const [state, setState] = useState(data.DocumentDescription);

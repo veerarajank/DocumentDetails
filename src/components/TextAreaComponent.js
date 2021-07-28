@@ -1,54 +1,37 @@
-import {useState} from "react";
-import {BsArrowLeftShort} from "react-icons/bs";
-import {IoMdCheckmark} from "react-icons/io";
+import {Component, useState} from "react";
+import reactDom from "react-dom";
 
-function TextAreaComponent({props})
-{
-    const [state, setstate] = useState(props.Document);
-    //console.log(state.DocumentDescription);
-    const ChangedValues=(e)=>
-    {
-        if (props.FieldEdit==="DocumentDescription")
-        {
-            setstate({Description:e.target.value,Type:state.Type})
-        }
-        else if (props.FieldEdit==="DocumentType")
-        {
-            this.setState({Description:state.Type,Type:e.target.value})
-        }
+
+class NameForm extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {value: ''};
+  
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
-    const saveChildValue=()=>
-    {
-        console.log(state.Description);
-        props.saveValues(state.Description,props.FieldEdit,props.Document);
+  
+    handleChange(event) {
+      this.setState({value: event.target.value});
     }
-    const backToOneStep=(e)=>
-    {
-        e.preventDefault();
-        props.backTo("/edit");
+  
+    handleSubmit(event) {
+      alert('A name was submitted: ' + this.state.value);
+      event.preventDefault();
     }
-    return(
-        <div>
-            <div className="List-Head">
-                <div className="Menu-Head">
-                     <h1>
-                        <BsArrowLeftShort type="button" onClick={backToOneStep} />
-                    </h1>
-                    <h4>
-                        <span className="d-block p-2">Enter Description</span>
-                    </h4>
-                </div>
-                <div>
-                    <h1>
-                        <IoMdCheckmark type="button" onClick={saveChildValue}/>
-                    </h1>
-                </div>
-            </div>
-           <div>
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" onChange={ChangedValues} defaultValue={state.DocumentDescription}></textarea>
-            </div>
-        </div>
-    );
-}
+  
+    render() {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Name:
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      );
+    }
+  }
+
 
 export default TextAreaComponent;
