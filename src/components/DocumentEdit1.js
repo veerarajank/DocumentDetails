@@ -14,8 +14,7 @@ const DocumentEdit1=()=>
     const history = useHistory();
     const saveChange=()=>
     {
-        console.log(state);
-        setData({DocumentDescription:state,DocumentType:data.DocumentType,DocumentValidatedBy:[]});
+        setData({DocumentDescription:state,DocumentType:data.DocumentType,DocumentValidatedBy:data.DocumentValidatedBy});
         history.push("/edit");
     }
     return(

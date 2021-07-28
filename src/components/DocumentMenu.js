@@ -3,7 +3,6 @@ import {IoIosBulb} from "react-icons/io";
 import {Link} from "react-router-dom";
 const DocumentMenu=()=>
 {
-    console.log("menu")
     return(
         <div>
             <div className="Menu-Head">

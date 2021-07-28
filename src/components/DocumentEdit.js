@@ -1,13 +1,20 @@
 import {BsChevronRight,BsArrowLeftShort} from "react-icons/bs";
 import {IoIosBulb,IoMdCheckmark} from "react-icons/io";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {DocumentContext} from "../Contexts/DocumentContext";
-import { useContext } from "react";
+import { useContext,useState } from "react";
+import GetPostAPI from "../Hooks/GetPostAPI";
 
 const DocumentEdit=()=>
 {
-    const {data}=useContext(DocumentContext);
-    console.log(data);
+    const {data,saveData}=useContext(DocumentContext);
+    const history=useHistory();
+    const storeData=()=>
+    {
+        console.log(data);
+        saveData({url:"http://localhost:52773/document/v1/saveDocumentDetails",type:"post",text:data});
+        history.push("/");
+    }
     return(
         <div>
             <div className="List-Head">
@@ -21,7 +28,7 @@ const DocumentEdit=()=>
                 </div>
                 <div>
                     <h1>
-                        <Link to="/"><IoMdCheckmark type="button" className="text-white"/></Link>
+                        <IoMdCheckmark type="button" className="text-white" onClick={storeData}/>
                     </h1>
                 </div>
             </div>

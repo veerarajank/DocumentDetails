@@ -1,21 +1,38 @@
 import {BsArrowLeftShort} from "react-icons/bs";
 import {IoMdCheckmark} from "react-icons/io";
-import { useContext,useState } from "react";
+import { useContext,useState,useEffect } from "react";
 import {DocumentContext} from "../Contexts/DocumentContext";
 import {Link,useHistory} from "react-router-dom"
+import GetPostAPI from "../Hooks/GetPostAPI";
 const DocumentEdit2=()=>
 {
     const {data,setData}=useContext(DocumentContext);
-    const [state, setState] = useState(data.DocumentDescription);
+    const [list, setList] = useState([]);
+    const [state, setState] = useState(data.DocumentType)
+    const {response,error}=GetPostAPI({url:"http://localhost:52773/document/v1/getAllDocumentTypes",type:"get",text:null});
+    useEffect(() => {
+       if (response)
+       {
+            setList(response);
+       }
+    }, [response])
+    const history = useHistory();
+    if (error)
+    {
+        return(
+            <div>
+                Please check the service 
+            </div>
+        )
+    }
     const DocChange=(e)=>
     {
         setState(e.target.value);
     }
-    const history = useHistory();
+    
     const saveChange=()=>
     {
-        console.log(state);
-        setData({DocumentDescription:state,DocumentType:data.DocumentType,DocumentValidatedBy:[]});
+        setData({DocumentDescription:data.DocumentDescription,DocumentType:state,DocumentValidatedBy:data.DocumentValidatedBy});
         history.push("/edit");
     }
     return(
@@ -38,10 +55,16 @@ const DocumentEdit2=()=>
                 </div>
             </div>
             <div>
-            <textarea className="form-control" rows="3" onChange={DocChange} defaultValue={data.DocumentDescription}></textarea>
+                <select className="form-control" onChange={DocChange} value={state}>
+                    {list.map(({ value,display }) => (
+                        <option key={value} value={display}>
+                            {display}
+                        </option>
+                    ))}
+                </select>
             </div>
         </div> 
     );
 }
 
-export default DocumentEdit1;
+export default DocumentEdit2;

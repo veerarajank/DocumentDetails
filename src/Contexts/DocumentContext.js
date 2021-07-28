@@ -1,24 +1,23 @@
 import { useState,createContext,useEffect } from "react";
-import axios from "axios";
+import GetPostAPI from "../Hooks/GetPostAPI";
 export const DocumentContext=createContext();
 
 const DoumentContextProvider=(props)=>
 {
     const [data, setData] = useState({DocumentDescription:"this is test document",DocumentType:"Standard",DocumentValidatedBy:["Administrator","Provider"]})
+    const {response}=GetPostAPI({url:"http://localhost:52773/document/v1/getDocumentDetails",type:"get",text:null})
     useEffect(() => {
-        axios['get']('http://localhost:52773/document/v1/getDocumentDetails')
-            .then((res) => {
-                if (res.data!=null)
-                {
-                    setData(res.data);
-                }              
-            })
-            .catch((err) => {
-            })
-    }, []);
-
+        if (response)
+        {
+            setData(response);
+        }
+    }, [response]);
+    const saveData=({url,type,text})=>
+    {
+        GetPostAPI({url:"http://localhost:52773/document/v1/getDocumentDetails",type:"get",text:null})
+    }
     return (
-        <DocumentContext.Provider value={{data,setData}}>
+        <DocumentContext.Provider value={{data,setData,saveData}}>
             {props.children}
         </DocumentContext.Provider>
     )

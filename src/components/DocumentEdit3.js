@@ -1,21 +1,43 @@
 import {BsArrowLeftShort} from "react-icons/bs";
 import {IoMdCheckmark} from "react-icons/io";
-import { useContext,useState } from "react";
+import { useContext,useState,useEffect } from "react";
 import {DocumentContext} from "../Contexts/DocumentContext";
 import {Link,useHistory} from "react-router-dom"
-const DocumentEdit3=()=>
+import GetPostAPI from "../Hooks/GetPostAPI";
+const DocumentEdit2=()=>
 {
     const {data,setData}=useContext(DocumentContext);
-    const [state, setState] = useState(data.DocumentDescription);
+    const [list, setList] = useState([]);
+    const [state, setState] = useState(data.DocumentValidatedBy)
+    const {response,error}=GetPostAPI({url:"http://localhost:52773/document/v1/getDocumentValidatedBy",type:"get",text:null});
+    useEffect(() => {
+       if (response)
+       {
+            setList(response);
+       }
+    }, [response])
+    const history = useHistory();
+    if (error)
+    {
+        return(
+            <div>
+                Please check the service 
+            </div>
+        )
+    }
     const DocChange=(e)=>
     {
-        setState(e.target.value);
+        let array=[]
+        for(let inc=0;inc<e.target.selectedOptions.length;inc++)
+        {
+            array.push(e.target.selectedOptions[inc].value)
+        }
+        setState(array);
     }
-    const history = useHistory();
+    
     const saveChange=()=>
     {
-        console.log(state);
-        setData({DocumentDescription:state,DocumentType:data.DocumentType,DocumentValidatedBy:[]});
+        setData({DocumentDescription:data.DocumentDescription,DocumentType:data.DocumentType,DocumentValidatedBy:state});
         history.push("/edit");
     }
     return(
@@ -38,10 +60,19 @@ const DocumentEdit3=()=>
                 </div>
             </div>
             <div>
-            <textarea className="form-control" rows="3" onChange={DocChange} defaultValue={data.DocumentDescription}></textarea>
+                <select className="form-control" multiple onChange={DocChange}>
+                    {
+                        list.map(({value,display})=>(
+                            <option key={value} value={display}>
+                                {display}
+                            </option>
+                        ))
+                    }
+                </select>
             </div>
         </div> 
     );
+    
 }
 
-export default DocumentEdit1;
+export default DocumentEdit2;
