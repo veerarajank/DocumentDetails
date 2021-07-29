@@ -12,12 +12,8 @@ const DoumentContextProvider=(props)=>
             setData(response);
         }
     }, [response]);
-    const saveData=({url,type,text})=>
-    {
-        GetPostAPI({url:"http://localhost:52773/document/v1/getDocumentDetails",type:"get",text:null})
-    }
     return (
-        <DocumentContext.Provider value={{data,setData,saveData}}>
+        <DocumentContext.Provider value={{data,setData}}>
             {props.children}
         </DocumentContext.Provider>
     )

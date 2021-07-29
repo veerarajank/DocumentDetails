@@ -1,37 +1,46 @@
-import {Component, useState} from "react";
-import reactDom from "react-dom";
-
-
-class NameForm extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {value: ''};
-  
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+import {BsArrowLeftShort} from "react-icons/bs";
+import {IoMdCheckmark} from "react-icons/io";
+import { useContext,useState } from "react";
+import {DocumentContext} from "../Contexts/DocumentContext";
+import {Link,useHistory} from "react-router-dom"
+const TextAreaComponent=()=>
+{
+    const {data,setData}=useContext(DocumentContext);
+    const [state, setState] = useState(data.DocumentDescription);
+    const DocChange=(e)=>
+    {
+        setState(e.target.value);
     }
-  
-    handleChange(event) {
-      this.setState({value: event.target.value});
+    const history = useHistory();
+    const saveChange=()=>
+    {
+        setData({DocumentDescription:state,DocumentType:data.DocumentType,DocumentValidatedBy:data.DocumentValidatedBy});
+        history.push("/edit");
     }
-  
-    handleSubmit(event) {
-      alert('A name was submitted: ' + this.state.value);
-      event.preventDefault();
-    }
-  
-    render() {
-      return (
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      );
-    }
-  }
-
+    return(
+        <div>
+            <div className="List-Head">
+                <div className="Menu-Head">
+                    <h1>
+                        <Link to="/edit">
+                            <BsArrowLeftShort type="button" className="text-white"/>
+                        </Link>
+                    </h1>
+                    <h4>
+                        <span className="d-block p-2">Enter Description</span>
+                    </h4>
+                </div>
+                <div>
+                    <h1>
+                        <IoMdCheckmark type="button" onClick={saveChange} />
+                    </h1>
+                </div>
+            </div>
+            <div>
+            <textarea className="form-control" rows="3" onChange={DocChange} defaultValue={data.DocumentDescription}></textarea>
+            </div>
+        </div> 
+    );
+}
 
 export default TextAreaComponent;

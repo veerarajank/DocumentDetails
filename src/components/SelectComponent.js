@@ -4,10 +4,10 @@ import { useContext,useState,useEffect } from "react";
 import {DocumentContext} from "../Contexts/DocumentContext";
 import {Link,useHistory} from "react-router-dom"
 import GetPostAPI from "../Hooks/GetPostAPI";
-const DocumentEdit2=()=>
+const SelectComponent=()=>
 {
     const {data,setData}=useContext(DocumentContext);
-    const [list, setList] = useState([]);
+    const [list, setList] = useState([{"value":1,"display":"Standard"},{"value":2,"display":"Others"}]);
     const [state, setState] = useState(data.DocumentType)
     const {response,error}=GetPostAPI({url:"http://localhost:52773/document/v1/getAllDocumentTypes",type:"get",text:null});
     useEffect(() => {
@@ -17,14 +17,6 @@ const DocumentEdit2=()=>
        }
     }, [response])
     const history = useHistory();
-    if (error)
-    {
-        return(
-            <div>
-                Please check the service 
-            </div>
-        )
-    }
     const DocChange=(e)=>
     {
         setState(e.target.value);
@@ -55,6 +47,9 @@ const DocumentEdit2=()=>
                 </div>
             </div>
             <div>
+                {error?<span>Caution: Application working without service</span>:null}
+            </div>
+            <div>
                 <select className="form-control" onChange={DocChange} value={state}>
                     {list.map(({ value,display }) => (
                         <option key={value} value={display}>
@@ -67,4 +62,4 @@ const DocumentEdit2=()=>
     );
 }
 
-export default DocumentEdit2;
+export default SelectComponent;

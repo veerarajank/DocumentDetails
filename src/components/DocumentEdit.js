@@ -2,17 +2,23 @@ import {BsChevronRight,BsArrowLeftShort} from "react-icons/bs";
 import {IoIosBulb,IoMdCheckmark} from "react-icons/io";
 import {Link, useHistory} from "react-router-dom";
 import {DocumentContext} from "../Contexts/DocumentContext";
-import { useContext,useState } from "react";
-import GetPostAPI from "../Hooks/GetPostAPI";
+import { useContext } from "react";
 
 const DocumentEdit=()=>
 {
-    const {data,saveData}=useContext(DocumentContext);
+    const {data}=useContext(DocumentContext);
     const history=useHistory();
     const storeData=()=>
     {
         console.log(data);
-        saveData({url:"http://localhost:52773/document/v1/saveDocumentDetails",type:"post",text:data});
+        fetch("http://localhost:52773/document/v1/saveDocumentDetails",{method:"post",body:JSON.stringify(data)} )
+        .then((resp)=> {
+            console.log("success while saving the record")
+        })
+        .catch((err)=>
+        {
+            console.log("error while saving the record")
+        })
         history.push("/");
     }
     return(
@@ -56,7 +62,7 @@ const DocumentEdit=()=>
                         <span className={"d-block p-2"}>
                             {data.DocumentDescription}
                         </span>
-                        <Link to="/edit1">
+                        <Link to="/text">
                             <span className={"d-block p-2"}>
                                 <BsChevronRight/>
                             </span>
@@ -71,7 +77,7 @@ const DocumentEdit=()=>
                 <div className="Sub-List-Items">
                     <span className={"d-block p-2"}>{data.DocumentType}</span>
                     <span className={"d-block p-2"}>
-                        <Link to="/edit2">
+                        <Link to="/select">
                             <BsChevronRight />
                         </Link>
                     </span>
@@ -86,7 +92,7 @@ const DocumentEdit=()=>
                 <div className="Sub-List-Items">
                     <span className={"d-block p-2"}>{data.DocumentValidatedBy.toString()}</span>
                     <span className={"d-block p-2"}>
-                        <Link to="/edit3">
+                        <Link to="/selectMultiple">
                             <BsChevronRight />
                         </Link>
                     </span>

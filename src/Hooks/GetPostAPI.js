@@ -20,7 +20,7 @@ const GetPostAPI=({url,type,text})=>
         })
         
     }, [url,type,text])
-    return {response,error}
+    return {response,error,setResponse}
     
   }
   export default GetPostAPI;
