@@ -1,10 +1,12 @@
+//providing Document List option
 import {BsList} from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from "react-router-dom"
 import {DocumentContext} from "../Contexts/DocumentContext";
 import { useContext } from "react";
 
-const DisplayValues=({name,value,classApply})=>
+// created common components to display the data 
+const DisplayValues=({id,name,value,classApply})=>
 {
     return(
         <div className="List-Items">
@@ -12,13 +14,14 @@ const DisplayValues=({name,value,classApply})=>
                 <span className={classApply}>{name}</span>
             </div>
             <div>
-                <span className={classApply}>{value}</span>
+                <span data-testid={id} className={classApply}>{value}</span>
             </div>
         </div>
     );
 }
  
 const DocumentList = () => {
+    //using context API to read the data
     const {data}=useContext(DocumentContext);
     return (
         <div>
@@ -37,7 +40,7 @@ const DocumentList = () => {
                     <h6><span className="d-block p-2 bg-secondary">DOCUMENT INFORMATION</span></h6>
                 </div>
                 <div>
-                    <DisplayValues name={"DESCRIPTION"} value={data.DocumentDescription} classApply={"d-block p-2"}/>
+                    <DisplayValues id={"Desc"} name={"DESCRIPTION"} value={data.DocumentDescription} classApply={"d-block p-2"}/>
                     <hr/>
                     <DisplayValues name={"TYPE"} value={data.DocumentType} classApply={"d-block p-2"}/>
                     <hr/>

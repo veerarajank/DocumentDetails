@@ -37,7 +37,7 @@ const SelectComponent=()=>
                         </Link>
                     </h1>
                     <h4>
-                        <span className="d-block p-2">Enter Description</span>
+                        <span className="d-block p-2" data-testid="Select-Desc">Select Document Type</span>
                     </h4>
                 </div>
                 <div>

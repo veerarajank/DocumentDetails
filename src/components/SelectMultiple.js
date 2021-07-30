@@ -1,3 +1,4 @@
+//providing select multiple component option
 import {BsArrowLeftShort} from "react-icons/bs";
 import {IoMdCheckmark} from "react-icons/io";
 import { useContext,useState,useEffect } from "react";
@@ -9,6 +10,7 @@ const SelectMultiple=()=>
     const {data,setData}=useContext(DocumentContext);
     const [list, setList] = useState([{"value":1,"display":"Administrator"},{"value":2,"display":"Provider"},{"value":3,"display":"Insurance Vendor"},{"value":4,"display":"Others"}]);
     const [state, setState] = useState(data.DocumentValidatedBy)
+    // reading data from API and to show inside the select multiple
     const {response,error}=GetPostAPI({url:"http://localhost:52773/document/v1/getDocumentValidatedBy",type:"get",text:null});
     useEffect(() => {
        if (response)
@@ -42,7 +44,7 @@ const SelectMultiple=()=>
                         </Link>
                     </h1>
                     <h4>
-                        <span className="d-block p-2">Enter Description</span>
+                        <span data-testid="Select-Desc" className="d-block p-2">Select DocumentValidatedBy</span>
                     </h4>
                 </div>
                 <div>

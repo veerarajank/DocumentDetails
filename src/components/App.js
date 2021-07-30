@@ -1,3 +1,4 @@
+// router 
 import "./App.css";
 import DocumentList from "./DocumentList";
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom"
@@ -10,8 +11,10 @@ import DoumentContextProvider from "../Contexts/DocumentContext";
 
 function App () {
   return(
+    //Context API implementation
     <DoumentContextProvider>
        <div>
+         {/* Router Part */}
           <Router>
             <Switch>
               <Route exact path="/" component={DocumentList}/>

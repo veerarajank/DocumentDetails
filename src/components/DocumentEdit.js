@@ -1,3 +1,4 @@
+//providing document Edit option
 import {BsChevronRight,BsArrowLeftShort} from "react-icons/bs";
 import {IoIosBulb,IoMdCheckmark} from "react-icons/io";
 import {Link, useHistory} from "react-router-dom";
@@ -10,14 +11,14 @@ const DocumentEdit=()=>
     const history=useHistory();
     const storeData=()=>
     {
-        console.log(data);
+        //posting the data to API
         fetch("http://localhost:52773/document/v1/saveDocumentDetails",{method:"post",body:JSON.stringify(data)} )
         .then((resp)=> {
-            console.log("success while saving the record")
+            alert("success while saving the record")
         })
         .catch((err)=>
         {
-            console.log("error while saving the record")
+            alert("error while saving the record")
         })
         history.push("/");
     }
@@ -29,7 +30,7 @@ const DocumentEdit=()=>
                         <Link to="/menu"><BsArrowLeftShort type="button" className="text-white"/></Link>
                     </h1>
                     <h4>
-                        <span className="d-block p-2">Edit Document</span>
+                        <span data-testid="menu" className="d-block p-2">Edit Document</span>
                     </h4>
                 </div>
                 <div>

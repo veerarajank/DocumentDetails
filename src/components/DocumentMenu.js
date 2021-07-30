@@ -1,3 +1,4 @@
+//providing Document menu option
 import {BsArrowLeftShort,BsChevronRight} from "react-icons/bs";
 import {IoIosBulb} from "react-icons/io";
 import {Link} from "react-router-dom";
@@ -17,7 +18,7 @@ const DocumentMenu=()=>
             </div>
             <div className="Menu-SubHead">
                 <span className="d-block p-2"><IoIosBulb/></span>
-                <span className="d-block p-2">Below are the options available for this document</span>
+                <span data-testid="editMenu" className="d-block p-2">Below are the options available for this document</span>
             </div>
             <div>
                 <h6><span className="d-block p-2 bg-secondary">MENU OPTIONS</span></h6>
